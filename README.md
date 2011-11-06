@@ -1,6 +1,6 @@
 # TxtToSql
 
-Create SQL CREATE scripts based on text files. Uses all sql files in current directory by default. Run TxtToSql.exe --help for options.
+Create SQL CREATE scripts based on text files. Uses all sql files in current directory by default. Run `TxtToSql.exe --help` for options.
 
 Requires .Net Framework (Windows) or Mono (Mac/Linux). Tested under Mono 2.8 and .Net Framework 4.0, but any reasonably recent version should be fine.
 
@@ -16,7 +16,7 @@ What the program does is best shown with an example. Say you have a CSV file tha
 	2011060136,NAADS CKW M E Baseline,Person-022015,Person-026628,Kasese,1.46556,29.94113,10/30/11 12:42,SMD-00...
 	2011060136,NAADS CKW M E Baseline,Person-022015,Person-026628,Kasese,1.46556,29.94113,10/30/11 12:42,SMD-00...
 
-You may want to put this table into a database ('SQL mode'), or simple understand exactly how the fields are formatted and what they contain ('Summarize mode'). See the following sections for more information and sample output.
+You may want to put this table into a database ('SQL mode'), or simply understand exactly how the fields are formatted and what they contain ('Summarize mode'). See the following sections for more information and sample output.
 
 ### SQL Mode
 
@@ -48,7 +48,7 @@ TxtToSql checks for nulls, and also figures out what data type is most appropria
 
 ### Summarize Mode
 
-When run with the --summarize (-s) option, TxtToSql instead writes to stdout something like this:
+When run with the `--summarize` (-s) option, TxtToSql instead writes to stdout something like this:
 
 	File name: Interviewee_Survey.csv
 	99271 recs
