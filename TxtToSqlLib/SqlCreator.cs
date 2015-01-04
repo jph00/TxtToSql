@@ -38,8 +38,9 @@ namespace TxtToSql {
             foreach (var col in data.Cols) Console.WriteLine(col);
 
             Console.WriteLine("\nUnique values per column: \n----\n");
-            foreach (var col in data.Cols.Where(col => col.DataType != typeof(double) && col.NumVals < 50))
-                Console.WriteLine(col.Name + ": " + string.Join(";", col.ValCount.Select(o => o.Key).ToArray()));
+	        foreach (var col in data.Cols)
+				Console.WriteLine(col.Name + ": " + col.MostCommonSumm(20));
+//                Console.WriteLine(col.Name + ": " + string.Join(";", col.ValCount.Select(o => o.Key).ToArray()));
             Console.WriteLine("--------\n\n");
         }
 

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+// ReSharper restore ReturnValueOfPureMethodIsNotUsed
 namespace TxtToSql {
     public class DataCol {
         private object vals_;
@@ -29,11 +30,11 @@ namespace TxtToSql {
             if (DataType == typeof(int)) return Ints().Min();
             return DataType == typeof(double) ? Doubles().Min() : null;
         }
-        private IEnumerable<double?> Doubles() { return (IEnumerable<double?>)Vals_; }
-        private IEnumerable<int?> Ints() { return (IEnumerable<int?>)Vals_; }
+        private IEnumerable<double?> Doubles() { return (IEnumerable<double?>)Vals; }
+        private IEnumerable<int?> Ints() { return (IEnumerable<int?>)Vals; }
         #endregion
 
-        public object Vals_ {
+        public object Vals {
             get {
                 if (DataType == typeof(int)) {
                     if (vals_ == null) vals_ = ValCount.Select(o => o.Key == "<NULL>" ? null : (int?)Convert.ToInt32(o.Key)).ToArray();
@@ -65,16 +66,19 @@ namespace TxtToSql {
             }
         }
 
-        public KeyValuePair<string, int> MostCommon() {
-            var top = new KeyValuePair<string, int>(null, 0);
-            foreach (var val in ValCount) {
-                if (val.Value <= top.Value) continue;
-                top = val;
-            }
-            return top;
-        }
+		public KeyValuePair<string, int> MostCommon() {
+			return ValCount.OrderByDescending(o => o.Value).First();
+		}
 
-        public override string ToString() {
+		public IEnumerable<KeyValuePair<string, int>> MostCommon(int n) {
+			return ValCount.OrderByDescending(o => o.Value).Take(n);
+		}
+
+	    public string MostCommonSumm(int n) {
+		    return String.Join("; ", MostCommon(n).Select(o=> o.Key + "/" + o.Value));
+	    }
+
+		public override string ToString() {
             var com = MostCommon();
             var res = new List<string>
                       {
@@ -107,19 +111,19 @@ namespace TxtToSql {
             else ValCount[val] = 1;
         }
 
-        readonly CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
-        const DateTimeStyles styles = DateTimeStyles.None;
+        readonly CultureInfo culture_ = CultureInfo.CreateSpecificCulture("en-US");
+        const DateTimeStyles STYLES = DateTimeStyles.None;
 
         private void CheckDT_(string val) {
             DateTime res;
             if (DateTime.TryParse(val, out res)) return;
-            if (DateTime.TryParse(val, culture, styles, out res)) return;
+            if (DateTime.TryParse(val, culture_, STYLES, out res)) return;
 
             try {
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
                 Convert.ToDateTime(val);
             } catch {
                 DataType = typeof(string);
-                return;
             }
         }
         private void CheckDbl_(string val) {
@@ -127,7 +131,6 @@ namespace TxtToSql {
                 Convert.ToDouble(val);
             } catch {
                 DataType = typeof(DateTime);
-                return;
             }
         }
         private void CheckInt_(string val) {
@@ -135,7 +138,6 @@ namespace TxtToSql {
                 Convert.ToInt32(val);
             } catch {
                 DataType = typeof(double);
-                return;
             }
         }
     }

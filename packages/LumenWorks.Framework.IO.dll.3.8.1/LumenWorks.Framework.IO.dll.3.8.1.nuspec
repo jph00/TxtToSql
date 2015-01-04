@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>LumenWorks.Framework.IO.dll</id>
+    <version>3.8.1</version>
+    <authors>Sebastien Lorion</authors>
+    <owners>Sebastien Lorion</owners>
+    <projectUrl>http://www.codeproject.com/KB/database/CsvReader.aspx</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A super fast and solid reader that provides non-cached, forward-only access to CSV data.</description>
+    <releaseNotes>Nuget Package for Sebastien Lorion's Reader built against .net 4.0</releaseNotes>
+    <copyright>Copyright 2012 Sebastien Lorion</copyright>
+    <tags>CSV</tags>
+  </metadata>
+</package>
